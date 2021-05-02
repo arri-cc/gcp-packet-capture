@@ -20,7 +20,7 @@ This is a simple solution that leverages Google Cloud Packet Mirroring [1] to ma
 5. Edit `terraform.tfvars` to reflect values for your environment, also overriding any default values you would like to change that are located in the `vars.tf` file.
 6. Run the plan `terraform plan -out tf.plan`
 7. If everything looks good, apply `terraform apply tf.plan`
-8. connect to the vm to run `tcpdump` via `gcloud compute ssh pcap-vm`.  Traffic can be filtered using the commands [5]
+8. connect to the vm to run `tcpdump` via `gcloud compute ssh pcap-vm`.  Here's a great guide to filtering traffic via `tcpdump` options [5]
 
 ## Todo
 
@@ -30,9 +30,8 @@ This is a simple solution that leverages Google Cloud Packet Mirroring [1] to ma
 
 References:
 
-[1] Google Cloud Packet Mirroring: <https://cloud.google.com/vpc/docs/packet-mirroring>
-[2] Terraform: <https://www.terraform.io/downloads.html>
-[3] tfenv: <https://github.com/tfutils/tfenv>
-[4] Google Cloud SDK: <https://cloud.google.com/sdk/docs/install>
-[5] tcpdump: <https://danielmiessler.com/study/tcpdump/>
-
+- [1] Google Cloud Packet Mirroring: <https://cloud.google.com/vpc/docs/packet-mirroring>
+- [2] Terraform: <https://www.terraform.io/downloads.html>
+- [3] tfenv: <https://github.com/tfutils/tfenv>
+- [4] Google Cloud SDK: <https://cloud.google.com/sdk/docs/install>
+- [5] tcpdump: <https://danielmiessler.com/study/tcpdump/>

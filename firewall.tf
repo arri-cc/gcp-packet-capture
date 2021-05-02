@@ -20,8 +20,8 @@ resource "google_compute_firewall" "allow_mirroring" {
 }
 
 //TODO: IAP SSH only
-resource "google_compute_firewall" "allow_ssh" {
-  name      = "${var.base_name}-allow-ssh"
+resource "google_compute_firewall" "allow_ssh_iap" {
+  name      = "${var.base_name}-allow-ssh-iap"
   network   = var.network
   direction = "INGRESS"
   project   = var.project
@@ -29,7 +29,8 @@ resource "google_compute_firewall" "allow_ssh" {
     protocol = "TCP"
     ports    = ["22"]
   }
-  target_tags = ["${var.compute_tag}"]
+  source_ranges = ["${var.iap_cidr}"]
+  target_tags   = ["${var.compute_tag}"]
 }
 
 resource "google_compute_firewall" "allow_health_check" {

@@ -41,6 +41,12 @@ variable "health_check_cidrs" {
   description = "known CIDR ranges for GCP Health Checks"
   default     = ["130.211.0.0/22", "35.191.0.0/16"]
 }
+
+variable "iap_cidr" {
+  type        = string
+  description = "Known CIDR range of IAP"
+  default     = "35.235.240.0/20"
+}
 variable "base_name" {
   type        = string
   description = "description"

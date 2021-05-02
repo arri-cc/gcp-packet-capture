@@ -1,25 +1,19 @@
 resource "google_compute_instance" "vm" {
   name         = "${var.base_name}-vm"
-  machine_type = "e2-medium"
+  machine_type = var.machine_type
   zone         = var.zone
-
+  project      = var.project
   boot_disk {
     initialize_params {
-      image = "debian-cloud/debian-9"
+      image = "debian-cloud/debian-10"
     }
   }
-
-  // Local SSD disk
-  scratch_disk {
-    interface = "SCSI"
-  }
-
   network_interface {
-    network    = var.network
-    subnetwork = google_compute_subnetwork.subnet.self_link
+    network    = data.google_compute_network.network.id
+    subnetwork = google_compute_subnetwork.subnet.id
   }
 
-  tags = ["allow-ssh-${base_name}"]
+  tags = ["${var.compute_tag}"]
 
   metadata_startup_script = <<EOF
     #! /bin/bash
@@ -30,4 +24,15 @@ resource "google_compute_instance" "vm" {
     apt-get install tcpdump nginx -y
     touch /etc/startup_script_completed
     EOF
+}
+
+resource "google_compute_instance_group" "ig" {
+  name        = "${var.base_name}-ig"
+  description = "Unmanaged instance group for packet capture"
+  project     = var.project
+  network     = data.google_compute_network.network.id
+  zone        = var.zone
+  instances = [
+    google_compute_instance.vm.id
+  ]
 }

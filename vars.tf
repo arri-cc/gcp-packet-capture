@@ -36,20 +36,30 @@ variable "ilb_ip_cidr" {
   default     = "10.99.0.99/32"
 }
 
+variable "health_check_cidrs" {
+  type        = set(string)
+  description = "known CIDR ranges for GCP Health Checks"
+  default     = ["130.211.0.0/22", "35.191.0.0/16"]
+}
 variable "base_name" {
   type        = string
   description = "description"
   default     = "pcap"
 }
 
+variable "machine_type" {
+  type        = string
+  description = "GCE machine type"
+  default     = "e2-medium"
+}
 variable "compute_tag" {
   type        = string
   description = "compute tag"
-  default     = "${base_name}-vm"
+  default     = "pcap-vm"
 }
 
 variable "source_network_tags" {
-  type        = set(any)
+  type        = list(string)
   description = "mirroring source network tags"
 }
 

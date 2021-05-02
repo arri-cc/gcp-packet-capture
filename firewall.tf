@@ -1,47 +1,48 @@
-
 resource "google_compute_firewall" "allow_mirroring" {
-  name      = "allow-packet-mirroring-ingress-${base_name}"
+  name      = "${var.base_name}-allow-packet-mirroring-ingress"
   network   = var.network
-  direction = "ingress"
+  direction = "INGRESS"
+  project   = var.project
 
   allow {
-    protocol = "icmp"
+    protocol = "ICMP"
   }
 
   allow {
-    protocol = "tcp"
+    protocol = "TCP"
   }
 
   allow {
-    protocol = "udp"
+    protocol = "UDP"
   }
 
-  source_tags        = var.source_network_tags
-  destination_ranges = ["${var.ilb_ip_cidr}"]
+  source_tags = var.source_network_tags
 }
 
+//TODO: IAP SSH only
 resource "google_compute_firewall" "allow_ssh" {
-  name      = "allow-ssh-${base_name}"
+  name      = "${var.base_name}-allow-ssh"
   network   = var.network
-  direction = "ingress"
-
+  direction = "INGRESS"
+  project   = var.project
   allow {
-    protocol = "tcp"
+    protocol = "TCP"
     ports    = ["22"]
   }
-  target_tags = ["allow-ssh-${base_name}"]
+  target_tags = ["${var.compute_tag}"]
 }
 
 resource "google_compute_firewall" "allow_health_check" {
-  name      = "allow-health-check-${base_name}"
+  name      = "${var.base_name}-allow-health-check"
   network   = var.network
-  direction = "ingress"
-
+  direction = "INGRESS"
+  project   = var.project
   allow {
-    protocol = "tcp"
-    ports    = ["22"]
+    protocol = "TCP"
+    ports    = ["80"]
   }
 
-  target_tags = ["allow-ssh-${base_name}"]
+  source_ranges = var.health_check_cidrs
+  target_tags   = ["${var.compute_tag}"]
 }
 

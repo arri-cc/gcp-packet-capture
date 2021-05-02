@@ -1,0 +1,7 @@
+project = "<project-name>"
+network = "<network-name>"
+region = "<region-name>"
+zone = "<zone-name>"
+source_network_tags = [
+    "<tag-from-source-gce-instances>"
+]

@@ -1,7 +1,7 @@
 resource "google_compute_instance" "vm" {
-  name         = "${base_name}-vm"
+  name         = "${var.base_name}-vm"
   machine_type = "e2-medium"
-  zone         = zone
+  zone         = var.zone
 
   boot_disk {
     initialize_params {
@@ -15,9 +15,11 @@ resource "google_compute_instance" "vm" {
   }
 
   network_interface {
-    network    = network
+    network    = var.network
     subnetwork = google_compute_subnetwork.subnet.self_link
   }
+
+  tags = ["allow-ssh-${base_name}"]
 
   metadata_startup_script = <<EOF
     #! /bin/bash

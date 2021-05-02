@@ -1,7 +1,6 @@
 resource "google_compute_subnetwork" "subnet" {
-  name          = "${base_name}-subnet"
-  ip_cidr_range = subnet_cidr
-  region        = region
-  network       = network
+  name          = "${var.base_name}-subnet"
+  ip_cidr_range = var.subnet_cidr
+  region        = var.region
+  network       = var.network
 }
-

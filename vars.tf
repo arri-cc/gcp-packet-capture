@@ -69,4 +69,7 @@ variable "source_network_tags" {
   description = "mirroring source network tags"
 }
 
-
+variable "source_gke_cluster_name" {
+  type        = string
+  description = "name of GKE cluster to mirror traffic from"
+}

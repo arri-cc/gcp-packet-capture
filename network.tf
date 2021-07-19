@@ -1,7 +1,3 @@
-data "google_compute_network" "network" {
-  name    = var.network
-  project = var.project
-}
 resource "google_compute_subnetwork" "subnet" {
   name          = "${var.base_name}-subnet"
   project       = var.project

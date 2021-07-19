@@ -15,8 +15,8 @@ resource "google_compute_firewall" "allow_mirroring" {
   allow {
     protocol = "UDP"
   }
-
   source_tags = var.source_network_tags
+  #source_tags = data.google_container_cluster.gke.node_config.tags
 }
 
 //TODO: IAP SSH only

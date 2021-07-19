@@ -10,6 +10,7 @@ resource "google_compute_packet_mirroring" "mirroring" {
     url = google_compute_forwarding_rule.ilb.id
   }
   mirrored_resources {
+    #tags = data.google_container_cluster.gke.node_config.tags
     tags = var.source_network_tags
   }
   filter {
